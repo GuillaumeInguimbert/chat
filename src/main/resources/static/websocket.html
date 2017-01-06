@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chatter</title>
+    <link href="css/websocket-all.css" rel="stylesheet">
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div class="page-header">
+    <h2>Chatter <small>Welcome</small></h2>
+</div>
+<div id="alert" class="alert alert-danger" role="alert"></div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <label for="name">What is your name?</label>
+                        <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                        <button id="connect" class="btn btn-primary" type="submit">Enter the chat</button>
+                        <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect</button>
+                    </div>
+                </form>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Chat</h3>
+                </div>
+                <div class="panel-body" style="min-height: 400px; max-height: 400px; overflow-y: scroll;" id="greetings">
+                </div>
+                <div class="panel-footer">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                    <form role="search">
+                        <div class="input-group">
+                            <input type="text" id="message" class="form-control" placeholder="Your message here..." aria-describedby="sizing-addon1">
+                            <span class="input-group-btn">
+                                <button id="send" class="btn btn-default" type="submit">Send</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="badge" id="nbusers"></span> user(s) online</h3>
+                </div>
+                <div class="panel-body" style="min-height: 400px; max-height: 400px; overflow-y: scroll;" id="usersonline">
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /.container-fluid -->
+
+<script src="/js/websocket-all.js"></script>
+<script src="/js/websocket.js"></script>
+
+</body>
+</html>
