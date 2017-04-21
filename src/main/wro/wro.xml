@@ -1,12 +1,13 @@
 <groups xmlns="http://www.isdc.ro/wro">
     <group name="all">
-
+        <css>classpath:META-INF/resources/webjars/bootstrap/3.3.7/css/bootstrap.min.css</css>
        <css>classpath:META-INF/resources/webjars/angular-ui-grid/4.0.0/ui-grid.min.css</css>
         <js>classpath:META-INF/resources/webjars/angularjs/1.5.9/angular.js</js>
         <js>classpath:META-INF/resources/webjars/angularjs/1.5.9/angular-touch.js</js>
         <js>classpath:META-INF/resources/webjars/angularjs/1.5.9/angular-animate.js</js>
         <js>classpath:META-INF/resources/webjars/angularjs/1.5.9/angular-resource.js</js>
          <js>classpath:META-INF/resources/webjars/angular-ui-grid/4.0.0/ui-grid.min.js</js>
+        <js>classpath:META-INF/resources/webjars/bootstrap/3.3.7/js/bootstrap.min.js</js>
       </group>
     <group name="websocket-all">
         <css>classpath:META-INF/resources/webjars/bootstrap/3.3.7/css/bootstrap.min.css</css>

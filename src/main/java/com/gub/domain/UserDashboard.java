@@ -1,6 +1,4 @@
-package com.gub.model;
-
-import com.gub.repository.UserRepository;
+package com.gub.domain;
 
 import java.util.List;
 

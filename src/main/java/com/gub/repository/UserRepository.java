@@ -1,7 +1,7 @@
 package com.gub.repository;
 
-import com.gub.model.User;
-import com.gub.model.UserDashboard;
+import com.gub.domain.User;
+import com.gub.domain.UserDashboard;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,6 @@ public class UserRepository {
         String ip = String.valueOf(((Map) message.getMessageHeaders().get("simpSessionAttributes")).get("ip"));
         saveOrUpdate(new User(message.getLogin(), message.getSessionId(),ip));
     }
-
 
     public void saveOrUpdate(User user){
         users.put(user.getSession(), user);

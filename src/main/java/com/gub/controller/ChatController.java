@@ -1,6 +1,6 @@
 package com.gub.controller;
 
-import com.gub.model.ChatMessage;
+import com.gub.domain.ChatMessage;
 import com.gub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -9,8 +9,6 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
-
-import java.util.Date;
 
 /**
  * Created by GUILLAUME.INGUIMBERT on 03/01/2017.
