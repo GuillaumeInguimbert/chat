@@ -10,7 +10,7 @@ public class ChatMessage extends Message{
     public ChatMessage() {
     }
 
-    public ChatMessage(String user, String message, String type) {
+    public ChatMessage(String user, String message, MessageType type) {
         this.user = user;
         this.message = message;
         this.type = type;

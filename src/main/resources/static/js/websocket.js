@@ -43,7 +43,7 @@ function setConnected(connected) {
 
 function connect() {
     console.log("connect...");
-    var socket = new SockJS('/gs-guide-websocket');
+    var socket = new SockJS('/chat-endpoint');
     stompClient = Stomp.over(socket);
 
     var headers = {
@@ -65,7 +65,7 @@ function connect() {
                 cleanUserDash();
                 buildUserDash(JSON.parse(message.body));
             });
-            sendEvent("joined the chat", "success");
+            sendEvent("joined the chat", "info");
         },
         function(error) {
            // display the error's message header:

@@ -2,6 +2,7 @@ package com.gub.repository;
 
 import com.gub.domain.User;
 import com.gub.domain.UserDashboard;
+import jdk.nashorn.internal.runtime.ECMAException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 @Scope("singleton")
 public class UserRepository {
 
-    private Map<String, User> users = new ConcurrentHashMap<>();
+    private final Map<String, User> users = new ConcurrentHashMap<>();
 
     public void saveOrUpdate(StompHeaderAccessor message){
         String ip = String.valueOf(((Map) message.getMessageHeaders().get("simpSessionAttributes")).get("ip"));
@@ -41,8 +42,10 @@ public class UserRepository {
         return users.get(message.getSessionId());
     }
 
-    public String findLoginBySession(StompHeaderAccessor message){
-        return Optional.ofNullable(findUserBySession(message)).get().getLogin();
+    public String findLoginBySession(StompHeaderAccessor message) throws Exception {
+        return Optional.ofNullable(findUserBySession(message))
+                .orElseThrow(() -> new Exception(String.format("No user with sessionId %s exists.", message.getSessionId())))
+                .getLogin();
     }
 
     public boolean exists(String session){

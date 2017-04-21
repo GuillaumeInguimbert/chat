@@ -1,6 +1,7 @@
 package com.gub.controller;
 
 import com.gub.domain.ChatMessage;
+import com.gub.domain.MessageType;
 import com.gub.repository.UserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,7 +32,7 @@ public class ChatController {
     @SendTo("/topic/chat")
     public ChatMessage chatMessage(String message, Message<?> messageObj) throws Exception {
         logger.debug("/chat/" + message);
-        return new ChatMessage(userRepository.findLoginBySession(StompHeaderAccessor.wrap(messageObj)),"" + message + "", "info");
+        return new ChatMessage(userRepository.findLoginBySession(StompHeaderAccessor.wrap(messageObj)),"" + message + "", MessageType.INFO);
     }
 
     @MessageMapping("/events")

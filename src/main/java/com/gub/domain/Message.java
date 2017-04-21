@@ -5,7 +5,7 @@ package com.gub.domain;
  */
 public abstract class Message {
 
-    protected String type = "info";
+    protected MessageType type;
 
     protected String message;
 
@@ -13,7 +13,7 @@ public abstract class Message {
         return message;
     }
 
-    public String getType() {
+    public MessageType getType() {
         return type;
     }
 }
