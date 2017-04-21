@@ -2,6 +2,8 @@ package com.gub.controller;
 
 import com.gub.domain.ChatMessage;
 import com.gub.repository.UserRepository;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -16,6 +18,9 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class ChatController {
 
+
+    private final Log logger = LogFactory.getLog(ChatController.class);
+
     @Autowired
     UserRepository userRepository;
 
@@ -25,19 +30,19 @@ public class ChatController {
     @MessageMapping("/chat")
     @SendTo("/topic/chat")
     public ChatMessage chatMessage(String message, Message<?> messageObj) throws Exception {
-        System.out.println("/chat/" + message);
+        logger.debug("/chat/" + message);
         return new ChatMessage(userRepository.findLoginBySession(StompHeaderAccessor.wrap(messageObj)),"" + message + "", "info");
     }
 
     @MessageMapping("/events")
     @SendTo("/topic/events")
     public ChatMessage events(ChatMessage event) throws Exception {
-        System.out.println("/events/" + event.getUser());
-        nbUsers();
+        logger.debug("/events/" + event.getUser());
+        refreshUserDashboard();
         return event;
     }
 
-    public void nbUsers() {
-        messagingTemplate.convertAndSend("/topic/nbusers", userRepository.dashboard());
+    public void refreshUserDashboard() {
+        messagingTemplate.convertAndSend("/topic/dashboard", userRepository.buildDashboard());
     }
 }

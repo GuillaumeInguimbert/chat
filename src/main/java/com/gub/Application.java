@@ -15,7 +15,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ComponentScan
 @EnableAutoConfiguration
 @EnableAsync
-@EnableScheduling
 @SpringBootApplication
 public class Application {
 

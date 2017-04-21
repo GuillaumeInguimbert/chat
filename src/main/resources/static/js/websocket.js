@@ -61,7 +61,7 @@ function connect() {
             stompClient.subscribe('/topic/events', function (message) {
                 showEvent(JSON.parse(message.body).user, JSON.parse(message.body).type, JSON.parse(message.body).message);
             });
-            stompClient.subscribe('/topic/nbusers', function (message) {
+            stompClient.subscribe('/topic/dashboard', function (message) {
                 cleanUserDash();
                 buildUserDash(JSON.parse(message.body));
             });

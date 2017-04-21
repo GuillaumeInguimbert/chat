@@ -7,14 +7,17 @@
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
     enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
+    Javascript and reload this page!
+</h2></noscript>
+
 <div class="page-header">
-    <h2>Chatter <small>Welcome</small></h2>
+    <h2>Welcome<small> Chat WebSocket protocol</small></h2>
 </div>
 <div id="alert" class="alert alert-danger" role="alert"></div>
+
+<!-- Subscribe block -->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
@@ -24,12 +27,13 @@
                         <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect</button>
                     </div>
                 </form>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
 
 <div class="container-fluid">
     <div class="row">
+        <!-- Chat block -->
         <div class="col-md-8">
             <div class="panel panel-success">
                 <div class="panel-heading">
@@ -50,6 +54,7 @@
                 </div>
             </div>
         </div>
+        <!-- Users list block -->
         <div class="col-md-4">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -60,7 +65,7 @@
             </div>
         </div>
     </div>
-</div><!-- /.container-fluid -->
+</div>
 
 <script src="/js/websocket-all.js"></script>
 <script src="/js/websocket.js"></script>

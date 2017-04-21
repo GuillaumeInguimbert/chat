@@ -2,7 +2,9 @@ package com.gub.repository;
 
 import com.gub.domain.User;
 import com.gub.domain.UserDashboard;
+import org.springframework.context.annotation.Scope;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,7 +14,8 @@ import java.util.stream.Collectors;
 /**
  * Created by GUILLAUME.INGUIMBERT on 04/01/2017.
  */
-@Service
+@Repository
+@Scope("singleton")
 public class UserRepository {
 
     private Map<String, User> users = new ConcurrentHashMap<>();
@@ -50,8 +53,8 @@ public class UserRepository {
         return users.size();
     }
 
-    public UserDashboard dashboard(){
-        return new UserDashboard(count(), users.values().stream().collect(Collectors.toList()));
+    public UserDashboard buildDashboard(){
+        return new UserDashboard(users.values().stream().collect(Collectors.toList()));
     }
 
 }

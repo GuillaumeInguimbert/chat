@@ -20,8 +20,10 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import static java.lang.String.*;
 
 /**
  * Created by GUILLAUME.INGUIMBERT on 03/01/2017.
@@ -38,40 +40,41 @@ public class WebSocketConfig  extends AbstractWebSocketMessageBrokerConfigurer {
     @Autowired
     ChatController chatController;
 
+    /**
+     * Interceptor used to handle incoming messages from WebSocket clients.
+     * @param registration
+     */
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
         registration.setInterceptors(new ChannelInterceptorAdapter() {
-
             @Override
             public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
 
-                StompHeaderAccessor sha = StompHeaderAccessor.wrap(message);
+                StompHeaderAccessor stompMessage = StompHeaderAccessor.wrap(message);
 
                 // ignore non-STOMP messages like heartbeat messages
-                if(sha.getCommand() == null) {
+                if(Objects.isNull(stompMessage.getCommand())) {
                     return;
                 }
 
-                String sessionId = sha.getSessionId();
-
-                switch(sha.getCommand()) {
+                switch(stompMessage.getCommand()) {
                     case CONNECT:
-                        logger.info("STOMP Connect [sessionId: " + sessionId + ", login: " + sha.getLogin() + " ]");
-                        if(!userRepository.userLoginExists(sha)){
-                            userRepository.saveOrUpdate(sha);
-                            chatController.nbUsers();
+                        logger.info(format("Connect %s", printConnectionInfo(stompMessage)));
+                        if(!userRepository.userLoginExists(stompMessage)){
+                            userRepository.saveOrUpdate(stompMessage);
+                            chatController.refreshUserDashboard();
                         }
                         else {
                             throw new IllegalArgumentException("Login already in use.");
                         }
                         break;
                     case CONNECTED:
-                        logger.info("STOMP Connected [sessionId: " + sessionId + "]");
+                        logger.info(format("Connected %s", printConnectionInfo(stompMessage)));
                         break;
                     case DISCONNECT:
-                        logger.info("STOMP Disconnect [sessionId: " + sessionId + "]");
-                        userRepository.remove(sha);
-                        chatController.nbUsers();
+                        logger.info(format("Disconnect %s", printConnectionInfo(stompMessage)));
+                        userRepository.remove(stompMessage);
+                        chatController.refreshUserDashboard();
                         break;
                     default:
                         break;
@@ -103,6 +106,10 @@ public class WebSocketConfig  extends AbstractWebSocketMessageBrokerConfigurer {
                     }
                 })
                 .withSockJS();
+    }
+
+    private String printConnectionInfo(StompHeaderAccessor msg){
+        return format("[sessionId: %s, login: %s]", msg.getSessionId(), msg.getLogin());
     }
 
 }

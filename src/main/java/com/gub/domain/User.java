@@ -5,9 +5,9 @@ package com.gub.domain;
  */
 public class User {
 
-    String login;
-    String session;
-    String ip;
+    private String login;
+    private String session;
+    private String ip;
 
     public User() {
     }
